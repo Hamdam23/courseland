@@ -1,7 +1,8 @@
 package com.courseland.user;
 
-import com.courseland.file.FileResponseDTO;
-import com.courseland.file.FileServiceClient;
+import com.courseland.clients.file.FileResponseDTO;
+import com.courseland.clients.file.FileServiceClient;
+import com.courseland.clients.file.FilesIdsRequest;
 import com.courseland.user.dtos.AppUserRequestDTO;
 import com.courseland.user.dtos.AppUserResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,10 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUserResponseDTO createUser(AppUserRequestDTO userRequestDto) {
+
+        List<FileResponseDTO> re = fileServiceClient.getFilesFromIds(
+                new FilesIdsRequest(List.of(23L, 24L))
+        ).getBody();
         AppUser user = userRepository.save(userMapper.toEntity(userRequestDto));
         AppUserResponseDTO response = userMapper.toResponse(user);
         response.setAvatar(getFileById(user.getAvatarId()));

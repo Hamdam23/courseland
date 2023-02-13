@@ -1,7 +1,7 @@
 package com.courseland.user;
 
-import com.courseland.user.dtos.AppUserRequestDTO;
 import com.courseland.user.dtos.AppUserResponseDTO;
+import com.courseland.user.dtos.AppUserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

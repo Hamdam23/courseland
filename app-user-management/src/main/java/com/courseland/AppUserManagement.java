@@ -1,6 +1,6 @@
 package com.courseland;
 
-import com.courseland.file.FileServiceClient;
+import com.courseland.clients.file.FileServiceClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;

@@ -1,6 +1,6 @@
 package com.courseland.user.dtos;
 
-import com.courseland.file.FileResponseDTO;
+import com.courseland.clients.file.FileResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 

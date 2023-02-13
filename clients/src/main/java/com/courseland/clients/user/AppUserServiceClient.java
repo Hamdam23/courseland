@@ -1,4 +1,4 @@
-package com.courseland.user;
+package com.courseland.clients.user;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
