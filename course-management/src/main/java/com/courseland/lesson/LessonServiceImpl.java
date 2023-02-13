@@ -1,7 +1,8 @@
 package com.courseland.lesson;
 
-import com.courseland.file.FileServiceClient;
+import com.courseland.clients.file.FilesIdsRequest;
 import com.courseland.lesson.dtos.LessonRequestDTO;
+import com.courseland.clients.file.FileServiceClient;
 import com.courseland.lesson.dtos.LessonResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,11 @@ public class LessonServiceImpl implements LessonService {
     public LessonResponseDTO createLesson(LessonRequestDTO lessonRequestDTO) {
         Lesson lesson = userRepository.save(lessonMapper.toEntity(lessonRequestDTO));
 
-        return lessonMapper.toResponseDTO(lesson);
+        return lessonMapper.toWithFilesResponseDTO(
+                lesson,
+                fileServiceClient.getFilesFromIds(new FilesIdsRequest(lessonRequestDTO.getStudyMaterials())).getBody(),
+                fileServiceClient.getFilesFromIds(new FilesIdsRequest(lessonRequestDTO.getRelatedResources())).getBody()
+        );
     }
 
     @Override
@@ -31,8 +36,8 @@ public class LessonServiceImpl implements LessonService {
         lessonMapper.partialUpdate(user, lessonRequestDTO);
 
         LessonResponseDTO response = lessonMapper.toResponseDTO(user);
-        response.setStudyMaterials(fileServiceClient.getFilesFromIds(lessonRequestDTO.getStudyMaterials()).getBody());
-        response.setRelatedResources(fileServiceClient.getFilesFromIds(lessonRequestDTO.getRelatedResources()).getBody());
+        response.setStudyMaterials(fileServiceClient.getFilesFromIds(new FilesIdsRequest(lessonRequestDTO.getStudyMaterials())).getBody());
+        response.setRelatedResources(fileServiceClient.getFilesFromIds(new FilesIdsRequest(lessonRequestDTO.getRelatedResources())).getBody());
 
         return response;
     }
@@ -54,8 +59,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public void deleteLesson(Long id) {
-        userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+        if(!userRepository.existsById(id)) throw new RuntimeException("invalid id");
         userRepository.deleteById(id);
     }
 }

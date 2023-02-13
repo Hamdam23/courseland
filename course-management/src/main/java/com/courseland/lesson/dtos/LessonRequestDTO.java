@@ -6,7 +6,6 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -15,9 +14,6 @@ public class LessonRequestDTO {
 
     @NotBlank
     private String title;
-
-    @NotNull
-    private Long courseId;
 
     @NonNull
     private Type type;

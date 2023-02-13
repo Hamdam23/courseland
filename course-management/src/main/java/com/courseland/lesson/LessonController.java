@@ -31,7 +31,7 @@ public class LessonController {
         return ResponseEntity.ok().body(lessonService.createLesson(requestDto));
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<LessonResponseDTO> updateLesson(
             @PathVariable Long id,
             @RequestBody LessonRequestDTO requestDto
@@ -46,13 +46,13 @@ public class LessonController {
         return ResponseEntity.ok().body(lessonService.getAllLessons());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<LessonResponseDTO> getLesson(@PathVariable Long id) {
         log.info("Request to get a lesson");
         return ResponseEntity.ok().body(lessonService.getLesson(id));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteLesson(@PathVariable Long id) {
         log.info("Request to delete a lesson");
         lessonService.deleteLesson(id);

@@ -1,8 +1,8 @@
 package com.courseland.course.dtos;
 
-import com.courseland.file.FileResponseDTO;
+import com.courseland.clients.file.FileResponseDTO;
 import com.courseland.lesson.dtos.LessonResponseDTO;
-import com.courseland.user.AppUserResponseDTO;
+import com.courseland.clients.user.AppUserResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 

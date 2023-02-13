@@ -1,6 +1,5 @@
 package com.courseland.course.dtos;
 
-import com.courseland.lesson.Lesson;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +16,6 @@ public class CourseRequestDTO {
     private List<Long> pupils;
 
     private List<Long> files;
-
-    private List<Lesson> lessons;
 
     private Double price;
 }

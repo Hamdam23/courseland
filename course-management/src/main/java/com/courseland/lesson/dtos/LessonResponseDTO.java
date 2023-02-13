@@ -1,7 +1,6 @@
 package com.courseland.lesson.dtos;
 
-import com.courseland.file.FileResponseDTO;
-import com.courseland.course.dtos.CourseResponseDTO;
+import com.courseland.clients.file.FileResponseDTO;
 import com.courseland.lesson.Type;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +14,6 @@ public class LessonResponseDTO {
     private Long id;
 
     private String title;
-
-    private CourseResponseDTO course;
 
     private Type type;
 

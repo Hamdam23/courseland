@@ -14,6 +14,7 @@ import org.mapstruct.Mapping;
 public abstract class CourseMapper implements BaseMapper<Course, CourseRequestDTO, CourseResponseDTO> {
 
     @Override
+    @Mapping(target = "lessons", ignore = true)
     abstract public Course toEntity(CourseRequestDTO courseRequestDTO);
 
     @Override
