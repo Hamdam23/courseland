@@ -1,5 +1,7 @@
 package com.courseland.file;
 
+import com.courseland.clients.file.FileResponseDTO;
+import com.courseland.file.helper.FilesIdsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -72,8 +74,8 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public List<FileResponseDTO> getFilesFromIds(List<Long> ids) {
-        return fileRepository.findAllByIdIn(ids).stream().map(fileMapper::toResponse).collect(Collectors.toList());
+    public List<FileResponseDTO> getFilesFromIds(FilesIdsRequest request) {
+        return fileRepository.findAllByIdIn(request.getIds()).stream().map(fileMapper::toResponse).collect(Collectors.toList());
     }
 
     private String getOriginalFileName(MultipartFile multipartFile) {

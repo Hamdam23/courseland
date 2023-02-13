@@ -1,5 +1,7 @@
 package com.courseland.file;
 
+import com.courseland.clients.file.FileResponseDTO;
+import com.courseland.file.helper.FilesIdsRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,7 +33,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(fileStorageService.uploadFile(file));
     }
 
-    @GetMapping(value = "download/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/download/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
         return ResponseEntity.ok().body(fileStorageService.downloadFile(id));
     }
@@ -41,26 +43,26 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(fileStorageService.getAllFiles());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FileResponseDTO> getFile(@PathVariable Long id) {
         return ResponseEntity.ok(fileStorageService.getFile(id));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteFile(@PathVariable Long id) {
         fileStorageService.deleteFile(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("check-file-id/{id}")
+    @GetMapping("/check-file-id/{id}")
     public void checkFileId(@PathVariable Long id) {
         log.info("request to check file id {}", id);
         fileStorageService.checkFileId(id);
     }
 
-    @GetMapping("get-files-from-ids")
-    public ResponseEntity<List<FileResponseDTO>> getFilesFromIds(@RequestBody List<Long> ids) {
-        log.info("request to get files from ids {}", ids);
-        return ResponseEntity.ok(fileStorageService.getFilesFromIds(ids));
+    @PostMapping("/get-files-from-ids")
+    public ResponseEntity<List<FileResponseDTO>> getFilesFromIds(@RequestBody FilesIdsRequest request) {
+        log.info("request to get files from ids {}", request);
+        return ResponseEntity.ok(fileStorageService.getFilesFromIds(request));
     }
 }

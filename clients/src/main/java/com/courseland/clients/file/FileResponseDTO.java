@@ -1,4 +1,4 @@
-package com.courseland.file;
+package com.courseland.clients.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

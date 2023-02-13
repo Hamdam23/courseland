@@ -1,5 +1,7 @@
 package com.courseland.file;
 
+import com.courseland.clients.file.FileResponseDTO;
+import com.courseland.file.helper.FilesIdsRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,5 +21,5 @@ public interface FileStorageService {
 
     void checkFileId(Long id);
 
-    List<FileResponseDTO> getFilesFromIds(List<Long> ids);
+    List<FileResponseDTO> getFilesFromIds(FilesIdsRequest request);
 }
