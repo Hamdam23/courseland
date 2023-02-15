@@ -21,5 +21,6 @@ public abstract class CourseMapper implements BaseMapper<Course, CourseRequestDT
     @Mapping(target = "teachers", ignore = true)
     @Mapping(target = "pupils", ignore = true)
     @Mapping(target = "files", ignore = true)
+    @Mapping(target = "lessons", ignore = true)
     abstract public CourseResponseDTO toResponseDTO(Course course);
 }

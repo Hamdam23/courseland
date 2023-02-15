@@ -1,6 +1,7 @@
 package com.courseland.lesson;
 
 import com.courseland.clients.file.FilesIdsRequest;
+import com.courseland.course.CourseMapper;
 import com.courseland.lesson.dtos.LessonRequestDTO;
 import com.courseland.clients.file.FileServiceClient;
 import com.courseland.lesson.dtos.LessonResponseDTO;
@@ -14,24 +15,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LessonServiceImpl implements LessonService {
 
-    private final LessonRepository userRepository;
+    private final LessonRepository lessonRepository;
     private final LessonMapper lessonMapper;
     private final FileServiceClient fileServiceClient;
 
     @Override
     public LessonResponseDTO createLesson(LessonRequestDTO lessonRequestDTO) {
-        Lesson lesson = userRepository.save(lessonMapper.toEntity(lessonRequestDTO));
+        Lesson lesson = lessonRepository.save(lessonMapper.toEntity(lessonRequestDTO));
 
-        return lessonMapper.toWithFilesResponseDTO(
-                lesson,
-                fileServiceClient.getFilesFromIds(new FilesIdsRequest(lessonRequestDTO.getStudyMaterials())).getBody(),
-                fileServiceClient.getFilesFromIds(new FilesIdsRequest(lessonRequestDTO.getRelatedResources())).getBody()
-        );
+        return lessonMapper.toWithFilesResponseDTO(lesson);
     }
 
     @Override
     public LessonResponseDTO updateLesson(Long id, LessonRequestDTO lessonRequestDTO) {
-        Lesson user = userRepository.findById(id)
+        Lesson user = lessonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("invalid id"));
         lessonMapper.partialUpdate(user, lessonRequestDTO);
 
@@ -44,14 +41,15 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<LessonResponseDTO> getAllLessons() {
-        return userRepository.findAll()
-                .stream().map(lessonMapper::toResponseDTO)
+
+        return lessonRepository.findAll()
+                .stream().map(lessonMapper::toWithFilesResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public LessonResponseDTO getLesson(Long id) {
-        Lesson user = userRepository.findById(id)
+        Lesson user = lessonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("invalid id"));
 
         return lessonMapper.toResponseDTO(user);
@@ -59,7 +57,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public void deleteLesson(Long id) {
-        if(!userRepository.existsById(id)) throw new RuntimeException("invalid id");
-        userRepository.deleteById(id);
+        if(!lessonRepository.existsById(id)) throw new RuntimeException("invalid id");
+        lessonRepository.deleteById(id);
     }
 }

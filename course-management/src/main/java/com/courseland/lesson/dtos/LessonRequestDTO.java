@@ -2,6 +2,7 @@ package com.courseland.lesson.dtos;
 
 import com.courseland.lesson.Type;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class LessonRequestDTO {
 
     @NotBlank
