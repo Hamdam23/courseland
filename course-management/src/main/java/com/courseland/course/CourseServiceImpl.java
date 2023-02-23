@@ -1,10 +1,9 @@
 package com.courseland.course;
 
-import com.courseland.clients.file.FileServiceClient;
-import com.courseland.clients.user.AppUserServiceClient;
 import com.courseland.course.dtos.CourseRequestDTO;
 import com.courseland.course.dtos.CourseResponseDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,21 +11,17 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
-    private final FileServiceClient fileServiceClient;
-    private final AppUserServiceClient userServiceClient;
 
     @Override
     public CourseResponseDTO createCourse(CourseRequestDTO courseRequest) {
         Course course = courseRepository.save(courseMapper.toEntity(courseRequest));
-        CourseResponseDTO response = courseMapper.toResponseDTO(course);
-//        response.setTeachers(userServiceClient.getUsersFromIds(courseRequest.getTeachers()).getBody());
-//        response.setPupils(userServiceClient.getUsersFromIds(courseRequest.getPupils()).getBody());
-//        response.setFiles(fileServiceClient.getFilesFromIds(courseRequest.getFiles()).getBody());
-        return response;
+
+        return courseMapper.toWithJoins(course);
     }
 
     @Override

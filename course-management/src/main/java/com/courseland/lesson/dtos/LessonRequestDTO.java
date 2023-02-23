@@ -20,6 +20,8 @@ public class LessonRequestDTO {
     @NonNull
     private Type type;
 
+    private Long courseId;
+
     private List<Long> studyMaterials;
 
     private List<Long> relatedResources;

@@ -3,6 +3,7 @@ package com.courseland.lesson;
 import com.courseland.lesson.dtos.LessonRequestDTO;
 import com.courseland.lesson.dtos.LessonResponseDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LessonServiceImpl implements LessonService {
 
     private final LessonRepository lessonRepository;
@@ -19,7 +21,7 @@ public class LessonServiceImpl implements LessonService {
     public LessonResponseDTO createLesson(LessonRequestDTO lessonRequestDTO) {
         Lesson lesson = lessonRepository.save(lessonMapper.toEntity(lessonRequestDTO));
 
-        return lessonMapper.toWithFilesResponseDTO(lesson);
+        return lessonMapper.toWithJoinsResponseDTO(lesson);
     }
 
     @Override
@@ -29,14 +31,14 @@ public class LessonServiceImpl implements LessonService {
         lessonMapper.partialUpdate(lesson, lessonRequestDTO);
         lessonRepository.save(lesson);
 
-        return lessonMapper.toWithFilesResponseDTO(lesson);
+        return lessonMapper.toWithJoinsResponseDTO(lesson);
     }
 
     @Override
     public List<LessonResponseDTO> getAllLessons() {
 
         return lessonRepository.findAll()
-                .stream().map(lessonMapper::toWithFilesResponseDTO)
+                .stream().map(lessonMapper::toWithJoinsResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -45,7 +47,7 @@ public class LessonServiceImpl implements LessonService {
         Lesson user = lessonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("invalid id"));
 
-        return lessonMapper.toWithFilesResponseDTO(user);
+        return lessonMapper.toWithJoinsResponseDTO(user);
     }
 
     @Override

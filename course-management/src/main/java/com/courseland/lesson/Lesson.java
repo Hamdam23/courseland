@@ -1,5 +1,6 @@
 package com.courseland.lesson;
 
+import com.courseland.course.Course;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
@@ -42,4 +44,7 @@ public class Lesson {
     @Column(name = "related_resources")
     @ElementCollection
     private List<Long> relatedResources;
+
+    @ManyToOne
+    private Course course;
 }

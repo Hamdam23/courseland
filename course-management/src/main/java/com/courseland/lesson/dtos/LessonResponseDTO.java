@@ -1,6 +1,7 @@
 package com.courseland.lesson.dtos;
 
 import com.courseland.clients.file.FileResponseDTO;
+import com.courseland.course.dtos.CourseResponseDTO;
 import com.courseland.lesson.Type;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,6 @@ public class LessonResponseDTO {
     private List<FileResponseDTO> studyMaterials;
 
     private List<FileResponseDTO> relatedResources;
+
+    private CourseResponseDTO course;
 }
