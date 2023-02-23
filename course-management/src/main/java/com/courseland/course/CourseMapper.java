@@ -1,14 +1,16 @@
 package com.courseland.course;
 
-import com.courseland.BaseMapper;
+import com.courseland.commons.BaseMapper;
 import com.courseland.course.dtos.CourseRequestDTO;
 import com.courseland.course.dtos.CourseResponseDTO;
 import com.courseland.lesson.LessonMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
 @Mapper(
-        componentModel = "spring",
+        componentModel = SPRING,
         uses = LessonMapper.class
 )
 public abstract class CourseMapper implements BaseMapper<Course, CourseRequestDTO, CourseResponseDTO> {

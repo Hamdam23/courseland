@@ -1,7 +1,6 @@
 package com.courseland.lesson;
 
-import com.courseland.BaseMapper;
-import com.courseland.clients.file.FileResponseDTO;
+import com.courseland.commons.BaseMapper;
 import com.courseland.clients.file.FileServiceClient;
 import com.courseland.clients.file.FilesIdsRequest;
 import com.courseland.lesson.dtos.LessonRequestDTO;
@@ -10,12 +9,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-@Mapper(
-        componentModel = "spring"
-)
+@Mapper(componentModel = SPRING)
 public abstract class LessonMapper implements BaseMapper<Lesson, LessonRequestDTO, LessonResponseDTO> {
 
     @Autowired
