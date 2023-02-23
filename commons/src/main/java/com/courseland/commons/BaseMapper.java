@@ -1,12 +1,8 @@
-package com.courseland;
+package com.courseland.commons;
 
-import com.courseland.lesson.Lesson;
-import com.courseland.lesson.dtos.LessonResponseDTO;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-
-import java.util.List;
 
 public interface BaseMapper<Entity, RequestDTO, ResponseDTO> {
     Entity toEntity(RequestDTO dto);

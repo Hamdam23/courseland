@@ -22,6 +22,7 @@
 		<module>app-user-management</module>
         <module>api-gateway</module>
         <module>course-management</module>
+        <module>commons</module>
     </modules>
 
     <properties>
