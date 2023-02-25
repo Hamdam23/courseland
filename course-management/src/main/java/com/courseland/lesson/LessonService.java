@@ -2,18 +2,19 @@ package com.courseland.lesson;
 
 import com.courseland.lesson.dtos.LessonRequestDTO;
 import com.courseland.lesson.dtos.LessonResponseDTO;
+import com.courseland.lesson.dtos.LessonWithJoinsResponseDTO;
 
 import java.util.List;
 
 public interface LessonService {
 
-    LessonResponseDTO createLesson(LessonRequestDTO userRequestDto);
+    LessonWithJoinsResponseDTO createLesson(LessonRequestDTO userRequestDto);
 
-    LessonResponseDTO updateLesson(Long id, LessonRequestDTO userRequestDto);
+    LessonWithJoinsResponseDTO updateLesson(Long id, LessonRequestDTO userRequestDto);
 
-    List<LessonResponseDTO> getAllLessons();
+    List<LessonWithJoinsResponseDTO> getAllLessons();
 
-    LessonResponseDTO getLesson(Long id);
+    LessonWithJoinsResponseDTO getLesson(Long id);
 
     void deleteLesson(Long id);
 }

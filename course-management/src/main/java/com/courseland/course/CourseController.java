@@ -2,6 +2,7 @@ package com.courseland.course;
 
 import com.courseland.course.dtos.CourseRequestDTO;
 import com.courseland.course.dtos.CourseResponseDTO;
+import com.courseland.course.dtos.CourseWithJoinsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,14 @@ public class CourseController {
     private final CourseService courseService;
 
     @PostMapping
-    public ResponseEntity<CourseResponseDTO> createCourse(@RequestBody CourseRequestDTO requestDto) {
+    public ResponseEntity<CourseWithJoinsResponseDTO> createCourse(@RequestBody CourseRequestDTO requestDto) {
         log.info("Request to create a new course {}!", requestDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(courseService.createCourse(requestDto));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CourseResponseDTO> updateCourse(
+    public ResponseEntity<CourseWithJoinsResponseDTO> updateCourse(
             @PathVariable Long id,
             @RequestBody CourseRequestDTO requestDto
     ) {
@@ -43,14 +44,14 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CourseResponseDTO>> getAllCourses() {
+    public ResponseEntity<List<CourseWithJoinsResponseDTO>> getAllCourses() {
         log.info("Request to get all courses!");
 
         return ResponseEntity.ok().body(courseService.getAllCourses());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseResponseDTO> getCourse(@PathVariable Long id) {
+    public ResponseEntity<CourseWithJoinsResponseDTO> getCourse(@PathVariable Long id) {
         log.info("Request to get a course with id {}!", id);
 
         return ResponseEntity.ok().body(courseService.getCourse(id));

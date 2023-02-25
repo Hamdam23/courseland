@@ -6,6 +6,7 @@ import com.courseland.clients.user.AppUserServiceClient;
 import com.courseland.commons.BaseMapper;
 import com.courseland.course.dtos.CourseRequestDTO;
 import com.courseland.course.dtos.CourseResponseDTO;
+import com.courseland.course.dtos.CourseWithJoinsResponseDTO;
 import com.courseland.lesson.LessonMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -30,15 +31,14 @@ public abstract class CourseMapper implements BaseMapper<Course, CourseRequestDT
     @Mapping(target = "lessons", ignore = true)
     abstract public Course toEntity(CourseRequestDTO courseRequestDTO);
 
-    @Override
     @Mapping(target = "teachers", ignore = true)
     @Mapping(target = "pupils", ignore = true)
     @Mapping(target = "files", ignore = true)
     @Mapping(target = "lessons", ignore = true)
-    abstract public CourseResponseDTO toResponseDTO(Course course);
+    public abstract CourseWithJoinsResponseDTO toWithJoinsBase(Course course);
 
-    public CourseResponseDTO toWithJoins(Course course) {
-        CourseResponseDTO courseResponse = toResponseDTO(course);
+    public CourseWithJoinsResponseDTO toWithJoins(Course course) {
+        CourseWithJoinsResponseDTO courseResponse = toWithJoinsBase(course);
 
         courseResponse.setTeachers(userServiceClient.getUsersFromIds(course.getTeachers()).getBody());
         courseResponse.setPupils(userServiceClient.getUsersFromIds(course.getPupils()).getBody());

@@ -2,6 +2,7 @@ package com.courseland.course;
 
 import com.courseland.course.dtos.CourseRequestDTO;
 import com.courseland.course.dtos.CourseResponseDTO;
+import com.courseland.course.dtos.CourseWithJoinsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,30 +19,30 @@ public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
 
     @Override
-    public CourseResponseDTO createCourse(CourseRequestDTO courseRequest) {
+    public CourseWithJoinsResponseDTO createCourse(CourseRequestDTO courseRequest) {
         Course course = courseRepository.save(courseMapper.toEntity(courseRequest));
 
         return courseMapper.toWithJoins(course);
     }
 
     @Override
-    public CourseResponseDTO updateCourse(Long id, CourseRequestDTO courseRequest) {
+    public CourseWithJoinsResponseDTO updateCourse(Long id, CourseRequestDTO courseRequest) {
         return null;
     }
 
     @Override
-    public List<CourseResponseDTO> getAllCourses() {
+    public List<CourseWithJoinsResponseDTO> getAllCourses() {
         return courseRepository.findAll()
-                .stream().map(courseMapper::toResponseDTO)
+                .stream().map(courseMapper::toWithJoins)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CourseResponseDTO getCourse(Long id) {
+    public CourseWithJoinsResponseDTO getCourse(Long id) {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("invalid id"));
 
-        return courseMapper.toResponseDTO(course);
+        return courseMapper.toWithJoins(course);
     }
 
     @Override

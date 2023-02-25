@@ -23,6 +23,8 @@
         <module>api-gateway</module>
         <module>course-management</module>
         <module>commons</module>
+        <module>amqp</module>
+        <module>notification</module>
     </modules>
 
     <properties>

@@ -2,6 +2,7 @@ package com.courseland.lesson;
 
 import com.courseland.lesson.dtos.LessonRequestDTO;
 import com.courseland.lesson.dtos.LessonResponseDTO;
+import com.courseland.lesson.dtos.LessonWithJoinsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,13 @@ public class LessonController {
     private final LessonService lessonService;
 
     @PostMapping
-    public ResponseEntity<LessonResponseDTO> createLesson(@RequestBody LessonRequestDTO requestDto) {
+    public ResponseEntity<LessonWithJoinsResponseDTO> createLesson(@RequestBody LessonRequestDTO requestDto) {
         log.info("Request to create lesson");
         return ResponseEntity.ok().body(lessonService.createLesson(requestDto));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<LessonResponseDTO> updateLesson(
+    public ResponseEntity<LessonWithJoinsResponseDTO> updateLesson(
             @PathVariable Long id,
             @RequestBody LessonRequestDTO requestDto
     ) {
@@ -41,13 +42,13 @@ public class LessonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LessonResponseDTO>> getAllLessons() {
+    public ResponseEntity<List<LessonWithJoinsResponseDTO>> getAllLessons() {
         log.info("Request to get all lessons");
         return ResponseEntity.ok().body(lessonService.getAllLessons());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LessonResponseDTO> getLesson(@PathVariable Long id) {
+    public ResponseEntity<LessonWithJoinsResponseDTO> getLesson(@PathVariable Long id) {
         log.info("Request to get a lesson");
         return ResponseEntity.ok().body(lessonService.getLesson(id));
     }

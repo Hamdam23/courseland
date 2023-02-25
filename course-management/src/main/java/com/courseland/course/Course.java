@@ -47,5 +47,5 @@ public class Course {
     private List<Long> files = new ArrayList<>();
 
     @OneToMany
-    private List<Lesson> lessons;
+    private List<Lesson> lessons = new ArrayList<>();
 }

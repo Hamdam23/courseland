@@ -12,11 +12,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LessonResponseDTO {
+public class LessonWithJoinsResponseDTO {
 
     private Long id;
 
     private String title;
 
     private Type type;
+
+    private List<FileResponseDTO> studyMaterials;
+
+    private List<FileResponseDTO> relatedResources;
+
+    private CourseResponseDTO course;
 }
