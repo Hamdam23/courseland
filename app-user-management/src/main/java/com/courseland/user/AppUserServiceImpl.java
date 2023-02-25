@@ -2,6 +2,8 @@ package com.courseland.user;
 
 import com.courseland.clients.file.FileResponseDTO;
 import com.courseland.clients.file.FileServiceClient;
+import com.courseland.clients.notification.NotificationServiceClient;
+import com.courseland.clients.notification.NotificationRequest;
 import com.courseland.user.dtos.AppUserRequestDTO;
 import com.courseland.user.dtos.AppUserResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +19,13 @@ public class AppUserServiceImpl implements AppUserService {
     private final AppUserRepository userRepository;
     private final AppUserMapper userMapper;
     private final FileServiceClient fileServiceClient;
+    private final NotificationServiceClient notificationClient;
 
     @Override
     public AppUserResponseDTO createUser(AppUserRequestDTO userRequestDto) {
         AppUser user = userRepository.save(userMapper.toEntity(userRequestDto));
+        notificationClient.send(new NotificationRequest(user.getId(), "Thank you for registering courseland"));
+
         AppUserResponseDTO response = userMapper.toResponse(user);
         response.setAvatar(getFileById(user.getAvatarId()));
         return response;

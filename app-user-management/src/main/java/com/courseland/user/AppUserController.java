@@ -59,7 +59,7 @@ public class AppUserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("get-users-from-ids")
+    @PostMapping("get-users-from-ids")
     public ResponseEntity<List<AppUserResponseDTO>> getFilesFromIds(@RequestBody List<Long> ids) {
         log.info("request to get users from ids {}", ids);
         return ResponseEntity.ok(userService.getUsersFromIds(ids));
