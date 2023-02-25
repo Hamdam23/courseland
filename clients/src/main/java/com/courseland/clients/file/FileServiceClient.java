@@ -18,6 +18,6 @@ public interface FileServiceClient {
     @GetMapping("/api/v1/files/{id}")
     ResponseEntity<FileResponseDTO> getFile(@PathVariable Long id);
 
-    @PostMapping("/api/v1/files/get-files-from-ids")
+    @GetMapping("/api/v1/files/get-files-from-ids")
     ResponseEntity<List<FileResponseDTO>> getFilesFromIds(@RequestBody FilesIdsRequest request);
 }

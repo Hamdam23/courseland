@@ -26,43 +26,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileController {
 
-    private final FileStorageService fileStorageService;
+    private final FileService fileService;
 
     @PostMapping("/upload")
     public ResponseEntity<FileResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        return ResponseEntity.status(HttpStatus.OK).body(fileStorageService.uploadFile(file));
+        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadFile(file));
     }
 
     @GetMapping(value = "/download/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
-        return ResponseEntity.ok().body(fileStorageService.downloadFile(id));
+        return ResponseEntity.ok().body(fileService.downloadFile(id));
     }
 
     @GetMapping()
     public ResponseEntity<List<FileResponseDTO>> getFiles() {
-        return ResponseEntity.status(HttpStatus.OK).body(fileStorageService.getAllFiles());
+        return ResponseEntity.status(HttpStatus.OK).body(fileService.getAllFiles());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FileResponseDTO> getFile(@PathVariable Long id) {
-        return ResponseEntity.ok(fileStorageService.getFile(id));
+        return ResponseEntity.ok(fileService.getFile(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteFile(@PathVariable Long id) {
-        fileStorageService.deleteFile(id);
+        fileService.deleteFile(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/check-file-id/{id}")
     public void checkFileId(@PathVariable Long id) {
         log.info("request to check file id {}", id);
-        fileStorageService.checkFileId(id);
+        fileService.checkFileId(id);
     }
 
     @PostMapping("/get-files-from-ids")
     public ResponseEntity<List<FileResponseDTO>> getFilesFromIds(@RequestBody FilesIdsRequest request) {
         log.info("request to get files from ids {}", request);
-        return ResponseEntity.ok(fileStorageService.getFilesFromIds(request));
+        return ResponseEntity.ok(fileService.getFilesFromIds(request));
     }
 }

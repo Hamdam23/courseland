@@ -8,7 +8,7 @@ import org.springframework.util.unit.DataSize;
 @ConfigurationProperties(value = "multipart")
 @Getter
 @Setter
-public class FileStorageProperties {
+public class FileProperties {
 
     private DataSize maxFileSize;
 }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class FileStorageServiceImpl implements FileStorageService {
+public class FileServiceImpl implements FileService {
 
     private final FileRepository fileRepository;
     private final FileMapper fileMapper;
