@@ -1,5 +1,6 @@
 package com.courseland.user;
 
+import com.courseland.amqp.RabbitMQMessageProducer;
 import com.courseland.clients.file.FileResponseDTO;
 import com.courseland.clients.file.FileServiceClient;
 import com.courseland.clients.notification.NotificationServiceClient;
@@ -19,12 +20,16 @@ public class AppUserServiceImpl implements AppUserService {
     private final AppUserRepository userRepository;
     private final AppUserMapper userMapper;
     private final FileServiceClient fileServiceClient;
-    private final NotificationServiceClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     @Override
     public AppUserResponseDTO createUser(AppUserRequestDTO userRequestDto) {
         AppUser user = userRepository.save(userMapper.toEntity(userRequestDto));
-        notificationClient.send(new NotificationRequest(user.getId(), "Thank you for registering courseland"));
+        rabbitMQMessageProducer.publish(
+                new NotificationRequest(user.getId(), "Thank you for registering courseland"),
+                "internal.exchange",
+                "internal.notification.routing-key"
+        );
 
         AppUserResponseDTO response = userMapper.toResponse(user);
         response.setAvatar(getFileById(user.getAvatarId()));
