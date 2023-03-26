@@ -5,7 +5,6 @@ import com.courseland.file.helper.FilesIdsRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/files")
@@ -28,12 +30,13 @@ public class FileController {
 
     private final FileService fileService;
 
-    @PostMapping("/upload")
+    //todo handle 415 unsupported media type error
+    @PostMapping(value = "/upload", consumes = {IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE})
     public ResponseEntity<FileResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadFile(file));
     }
 
-    @GetMapping(value = "/download/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/download/{id}", produces = {IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE})
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
         return ResponseEntity.ok().body(fileService.downloadFile(id));
     }
@@ -52,12 +55,6 @@ public class FileController {
     public ResponseEntity<?> deleteFile(@PathVariable Long id) {
         fileService.deleteFile(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/check-file-id/{id}")
-    public void checkFileId(@PathVariable Long id) {
-        log.info("request to check file id {}", id);
-        fileService.checkFileId(id);
     }
 
     @PostMapping("/get-files-from-ids")

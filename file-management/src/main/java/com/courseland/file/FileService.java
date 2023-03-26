@@ -19,7 +19,5 @@ public interface FileService {
 
     void deleteFile(Long id);
 
-    void checkFileId(Long id);
-
     List<FileResponseDTO> getFilesFromIds(FilesIdsRequest request);
 }
