@@ -1,6 +1,6 @@
 package com.courseland.file;
 
-import com.courseland.clients.file.FileResponseDTO;
+import  com.courseland.clients.file.FileResponseDTO;
 import com.courseland.file.helper.FilesIdsRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import static org.springframework.http.MediaType.ALL_VALUE;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
@@ -31,7 +32,8 @@ public class FileController {
     private final FileService fileService;
 
     //todo handle 415 unsupported media type error
-    @PostMapping(value = "/upload", consumes = {IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE})
+    //ALL_VALUE because I couldn't find MediaType.IMAGE_JPG
+    @PostMapping(value = "/upload", consumes = ALL_VALUE)
     public ResponseEntity<FileResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadFile(file));
     }

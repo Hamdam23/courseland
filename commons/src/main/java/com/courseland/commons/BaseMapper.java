@@ -5,6 +5,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 public interface BaseMapper<Entity, RequestDTO, ResponseDTO> {
+
     Entity toEntity(RequestDTO dto);
 
     ResponseDTO toResponseDTO(Entity entity);

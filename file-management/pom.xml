@@ -80,6 +80,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.courseland</groupId>
+            <artifactId>commons</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
