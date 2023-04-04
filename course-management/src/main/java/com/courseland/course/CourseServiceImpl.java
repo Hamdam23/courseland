@@ -1,7 +1,7 @@
 package com.courseland.course;
 
+import com.courseland.exception.ResourceNotFoundException;
 import com.courseland.course.dtos.CourseRequestDTO;
-import com.courseland.course.dtos.CourseResponseDTO;
 import com.courseland.course.dtos.CourseWithJoinsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseWithJoinsResponseDTO updateCourse(Long id, CourseRequestDTO courseRequest) {
-        return null;
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Course", "id"));
+
+        courseMapper.partialUpdate(course, courseRequest);
+
+        return courseMapper.toWithJoins(course);
     }
 
     @Override
@@ -40,14 +45,14 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseWithJoinsResponseDTO getCourse(Long id) {
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course", "id"));
 
         return courseMapper.toWithJoins(course);
     }
 
     @Override
     public void deleteCourse(Long id) {
-        if (!courseRepository.existsById(id)) throw new RuntimeException("invalid id");
+        if (!courseRepository.existsById(id)) throw new ResourceNotFoundException("Course", "id");
         courseRepository.deleteById(id);
     }
 }

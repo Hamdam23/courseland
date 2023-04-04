@@ -1,10 +1,5 @@
-package com.courseland.commons.exception;
+package com.courseland.exception;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class ResourceNotFoundException extends RuntimeException {
 
     public ResourceNotFoundException(String resourceName, String fieldName) {

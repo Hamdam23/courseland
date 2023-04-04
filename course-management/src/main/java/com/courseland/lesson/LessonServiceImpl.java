@@ -1,7 +1,7 @@
 package com.courseland.lesson;
 
+import com.courseland.exception.ResourceNotFoundException;
 import com.courseland.lesson.dtos.LessonRequestDTO;
-import com.courseland.lesson.dtos.LessonResponseDTO;
 import com.courseland.lesson.dtos.LessonWithJoinsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public LessonWithJoinsResponseDTO updateLesson(Long id, LessonRequestDTO lessonRequestDTO) {
         Lesson lesson = lessonRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Lesson", "id"));
         lessonMapper.partialUpdate(lesson, lessonRequestDTO);
         lessonRepository.save(lesson);
 
@@ -46,14 +46,14 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public LessonWithJoinsResponseDTO getLesson(Long id) {
         Lesson user = lessonRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Lesson", "id"));
 
         return lessonMapper.toWithJoinsResponseDTO(user);
     }
 
     @Override
     public void deleteLesson(Long id) {
-        if (!lessonRepository.existsById(id)) throw new RuntimeException("invalid id");
+        if (!lessonRepository.existsById(id)) throw new ResourceNotFoundException("Lesson", "id");
         lessonRepository.deleteById(id);
     }
 }

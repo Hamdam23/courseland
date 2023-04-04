@@ -1,7 +1,7 @@
 package com.courseland.file;
 
 import com.courseland.clients.file.FileResponseDTO;
-import com.courseland.commons.exception.ResourceNotFoundException;
+import com.courseland.exception.ResourceNotFoundException;
 import com.courseland.file.helper.FilesIdsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public byte[] downloadFile(Long id) {
         return fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found!"))
+                .orElseThrow(() -> new ResourceNotFoundException("File", "id"))
                 .getData();
     }
 
@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public void deleteFile(Long id) {
         if (!fileRepository.existsById(id)) {
-            throw new RuntimeException("File not found!");
+            throw new ResourceNotFoundException("File", "id");
         }
         fileRepository.deleteById(id);
     }

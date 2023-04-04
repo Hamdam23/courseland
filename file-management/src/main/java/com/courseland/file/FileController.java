@@ -32,7 +32,7 @@ public class FileController {
     private final FileService fileService;
 
     //todo handle 415 unsupported media type error
-    //ALL_VALUE because I couldn't find MediaType.IMAGE_JPG
+    //ALL_VALUE because didn't find MediaType.IMAGE_JPG
     @PostMapping(value = "/upload", consumes = ALL_VALUE)
     public ResponseEntity<FileResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadFile(file));

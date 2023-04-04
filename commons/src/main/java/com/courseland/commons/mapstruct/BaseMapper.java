@@ -1,4 +1,4 @@
-package com.courseland.commons;
+package com.courseland.commons.mapstruct;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;

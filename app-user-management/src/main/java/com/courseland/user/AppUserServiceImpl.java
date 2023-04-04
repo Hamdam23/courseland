@@ -3,8 +3,8 @@ package com.courseland.user;
 import com.courseland.amqp.RabbitMQMessageProducer;
 import com.courseland.clients.file.FileResponseDTO;
 import com.courseland.clients.file.FileServiceClient;
-import com.courseland.clients.notification.NotificationServiceClient;
 import com.courseland.clients.notification.NotificationRequest;
+import com.courseland.exception.ResourceNotFoundException;
 import com.courseland.user.dtos.AppUserRequestDTO;
 import com.courseland.user.dtos.AppUserResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUserResponseDTO updateUser(Long id, AppUserRequestDTO userRequestDto) {
         AppUser user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id"));
         userMapper.partialUpdate(userRequestDto, user);
         AppUserResponseDTO response = userMapper.toResponse(user);
         response.setAvatar(getFileById(user.getAvatarId()));
@@ -54,14 +54,14 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUserResponseDTO getUsers(Long id) {
         AppUser user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id"));
         return userMapper.toResponse(user);
     }
 
     @Override
     public void deleteUser(Long id) {
         userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id"));
         userRepository.deleteById(id);
     }
 

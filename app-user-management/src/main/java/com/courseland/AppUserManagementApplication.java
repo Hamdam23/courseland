@@ -18,8 +18,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
                 NotificationServiceClient.class
         }
 )
-public class AppUserManagement {
+public class AppUserManagementApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AppUserManagement.class, args);
+        SpringApplication.run(AppUserManagementApplication.class, args);
     }
 }

@@ -1,6 +1,6 @@
 package com.courseland.lesson;
 
-import com.courseland.commons.BaseMapper;
+import com.courseland.commons.mapstruct.BaseMapper;
 import com.courseland.clients.file.FileServiceClient;
 import com.courseland.clients.file.FilesIdsRequest;
 import com.courseland.course.CourseMapper;

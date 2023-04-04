@@ -1,4 +1,4 @@
-package com.courseland.commons.exception;
+package com.courseland.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

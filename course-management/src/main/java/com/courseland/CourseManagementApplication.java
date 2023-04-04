@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients(basePackageClasses = {FileServiceClient.class, AppUserServiceClient.class})
-public class CourseManagement {
+public class CourseManagementApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CourseManagement.class, args);
+        SpringApplication.run(CourseManagementApplication.class, args);
     }
 }

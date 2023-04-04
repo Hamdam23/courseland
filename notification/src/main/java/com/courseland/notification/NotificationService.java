@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class NotificationService {
 
     private final NotificationRaepository notificationRaepository;

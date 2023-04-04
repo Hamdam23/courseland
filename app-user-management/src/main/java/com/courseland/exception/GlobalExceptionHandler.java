@@ -1,4 +1,4 @@
-package com.courseland.commons.exception;
+package com.courseland.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

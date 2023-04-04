@@ -3,7 +3,7 @@ package com.courseland.course;
 import com.courseland.clients.file.FileServiceClient;
 import com.courseland.clients.file.FilesIdsRequest;
 import com.courseland.clients.user.AppUserServiceClient;
-import com.courseland.commons.BaseMapper;
+import com.courseland.commons.mapstruct.BaseMapper;
 import com.courseland.course.dtos.CourseRequestDTO;
 import com.courseland.course.dtos.CourseResponseDTO;
 import com.courseland.course.dtos.CourseWithJoinsResponseDTO;
